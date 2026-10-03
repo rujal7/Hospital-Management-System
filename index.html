@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MediCare HMS</title>
+<style>
+:root{--blue:#1769e0;--ink:#17243e;--muted:#7b899f;--line:#e5ebf3;--bg:#f4f7fb;--card:#fff;--soft:#eaf3ff;--ok:#12805c;--okb:#e0f5ec;--warn:#9a6700;--warnb:#fff3d1;--bad:#c62828;--badb:#fde4e4;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#e6ecf7;--muted:#92a0b8;--line:#26334a;--bg:#0e1625;--card:#162036;--soft:#1b2c4d;--okb:#12382c;--warnb:#3b3010;--badb:#412020;--blue:#4d8ef0}}
+:root[data-theme="dark"]{--ink:#e6ecf7;--muted:#92a0b8;--line:#26334a;--bg:#0e1625;--card:#162036;--soft:#1b2c4d;--okb:#12382c;--warnb:#3b3010;--badb:#412020;--blue:#4d8ef0}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;font:14px/1.45 system-ui,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+aside{position:fixed;inset:0 auto 0 0;width:230px;background:var(--card);border-right:1px solid var(--line);padding:22px 14px;display:flex;flex-direction:column;overflow:auto}
+aside h2{margin:0;color:var(--blue)}aside>small{color:var(--muted);margin:4px 0 20px}
+nav a{display:block;padding:10px 12px;margin:3px 0;border-radius:8px;color:var(--muted);font-weight:600;cursor:pointer}
+nav a:hover,nav a.on{background:var(--soft);color:var(--blue)}
+.me{margin-top:auto;border-top:1px solid var(--line);padding-top:14px}.me small{display:block;color:var(--muted)}.me a{color:var(--bad);cursor:pointer}
+main{margin-left:230px}
+header{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:12px 24px;background:var(--card);border-bottom:1px solid var(--line)}
+header input{width:min(340px,100%)}
+input,select,textarea{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit}
+.page{padding:24px}.title{display:flex;justify-content:space-between;align-items:end;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.title h1{margin:0 0 4px;font-size:23px}.title p{margin:0;color:var(--muted)}
+button{background:var(--blue);color:#fff;border:0;border-radius:8px;padding:9px 14px;font-weight:700;cursor:pointer}
+button.g{background:var(--soft);color:var(--blue);padding:5px 10px}button.d{background:var(--badb);color:var(--bad);padding:5px 10px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}
+.card,.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+.card small{display:block;color:var(--muted);margin:6px 0 2px}.card b{font-size:26px}
+.panel{margin-top:16px;overflow-x:auto}.panel h3{margin:0 0 10px}
+table{width:100%;border-collapse:collapse;min-width:560px}th{color:var(--muted);font-size:12px;text-transform:uppercase;text-align:left}
+th,td{padding:10px 8px;border-bottom:1px solid var(--line)}td:last-child{white-space:nowrap;text-align:right}
+.p{padding:2px 9px;border-radius:99px;font-size:12px;font-weight:700;background:var(--warnb);color:var(--warn)}.p.ok{background:var(--okb);color:var(--ok)}.p.bad{background:var(--badb);color:var(--bad)}.p.in{background:var(--soft);color:var(--blue)}
+.wards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:4px}.bar{height:8px;background:var(--line);border-radius:9px;margin-top:8px}.bar i{display:block;height:100%;background:var(--blue);border-radius:9px}
+.modal{position:fixed;inset:0;background:#0007;display:none;align-items:center;justify-content:center;padding:16px;z-index:9}.modal.on{display:flex}
+.box{background:var(--card);border-radius:14px;padding:22px;width:min(560px,100%);max-height:90vh;overflow:auto}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid label{font-size:12px;color:var(--muted);font-weight:600}.grid .w{grid-column:1/-1}
+.toast{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));background:var(--ok);color:#fff;padding:10px 16px;border-radius:9px;display:none;z-index:10}
+#login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px;background:linear-gradient(135deg,#1769e0,#0b3d91)}
+#login form{background:var(--card);padding:32px;border-radius:16px;width:min(380px,100%);display:grid;gap:12px;text-align:center}
+.logo{width:52px;height:52px;margin:auto;border-radius:14px;background:var(--blue);color:#fff;font-size:28px;display:grid;place-items:center}
+#login label{text-align:left;font-size:12px;color:var(--muted);font-weight:600}
+@media(max-width:760px){aside{position:static;width:auto;flex-direction:row;flex-wrap:wrap;gap:4px;padding:10px}aside>small,.me{display:none}aside h2{width:100%}nav{display:flex;flex-wrap:wrap}main{margin:0}.grid{grid-template-columns:1fr}}
+</style></head><body>
+<div id="login"><form onsubmit="return signin(event)"><div class="logo">✚</div><h1 style="margin:0">Welcome to MediCare</h1><p style="margin:0;color:var(--muted)">Sign in to the Hospital Management System</p>
+<label>Email address<input value="admin@medicare.com" required></label><label>Password<input type="password" value="Admin@123" required></label><button>Sign in securely</button><small style="color:var(--muted)">Demo: admin@medicare.com / Admin@123</small></form></div>
+<div id="app" style="display:none"><aside><h2>✚ MediCare</h2><small>Hospital System</small><nav id="nav"></nav><div class="me"><b>Rajneesh Sharma</b><small>Admin</small><a onclick="location.reload()">Logout</a></div></aside>
+<main><header><input id="q" placeholder="Search hospital records..." oninput="draw()"><span>Rajneesh Sharma · Admin</span></header><section class="page" id="pg"></section></main></div>
+<div class="modal" id="m"><div class="box"><h3 id="mt" style="margin-top:0"></h3><div class="grid" id="mf"></div><div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px"><button class="g" onclick="m.classList.remove('on')">Cancel</button><button onclick="save()">Save</button></div></div></div>
+<div class="toast" id="t"></div>
+<script>
+const T=new Date().toISOString().slice(0,10),days=n=>new Date(Date.now()+n*864e5).toISOString().slice(0,10);
+const P=(a,b)=>({name:a,...b});
+const S={
+patients:[P('Ananya Mehta',{code:'PT-2841',dob:'1994-05-18',gender:'Female',blood:'A+',phone:'9876501042',allergies:'Penicillin',insurance:'Star Health'}),P('Rohan Verma',{code:'PT-1967',dob:'1987-11-03',gender:'Male',blood:'O+',phone:'9876501967',allergies:'None',insurance:'HDFC ERGO'}),P('Kavya Sharma',{code:'PT-3054',dob:'2001-02-14',gender:'Female',blood:'B+',phone:'9876503054',allergies:'Dust',insurance:'Ayushman Bharat'}),P('Ishaan Gupta',{code:'PT-2712',dob:'2016-08-22',gender:'Male',blood:'AB+',phone:'9876502712',allergies:'Peanuts',insurance:'Care Health'}),P('Simran Kaur',{code:'PT-3088',dob:'1978-06-09',gender:'Female',blood:'O-',phone:'9876503088',allergies:'None',insurance:'ICICI Lombard'})],
+doctors:[P('Dr. Arjun Kapoor',{code:'DR-001',dept:'Cardiology',qual:'MBBS, MD Cardiology',exp:14,fee:1200,phone:'9876100001',avail:'Yes'}),P('Dr. Meera Joshi',{code:'DR-002',dept:'Neurology',qual:'MBBS, DM Neurology',exp:11,fee:1400,phone:'9876100002',avail:'Yes'}),P('Dr. Vikram Singh',{code:'DR-003',dept:'Orthopedics',qual:'MBBS, MS Orthopedics',exp:16,fee:1000,phone:'9876100003',avail:'Yes'}),P('Dr. Sana Khan',{code:'DR-004',dept:'Pediatrics',qual:'MBBS, MD Pediatrics',exp:9,fee:800,phone:'9876100004',avail:'Yes'}),P('Dr. Nitin Rao',{code:'DR-005',dept:'General Medicine',qual:'MBBS, MD Medicine',exp:12,fee:900,phone:'9876100005',avail:'No'})],
+appointments:[['Ananya Mehta','Dr. Arjun Kapoor','09:00','Online','Chest discomfort','Confirmed'],['Rohan Verma','Dr. Meera Joshi','09:30','Walk-in','Severe headache','In Progress'],['Kavya Sharma','Dr. Vikram Singh','10:15','Online','Knee pain','Waiting'],['Ishaan Gupta','Dr. Sana Khan','11:00','Walk-in','Routine checkup','Confirmed']].map((a,i)=>({patient:a[0],doctor:a[1],date:T,time:a[2],type:a[3],reason:a[4],status:a[5],queue:i+1})),
+pharmacy:[P('Paracetamol 500mg',{batch:'PCM-1042',stock:4280,price:25,expiry:days(500),supplier:'MedLife Pharma'}),P('Amoxicillin 250mg',{batch:'AMX-0871',stock:620,price:95,expiry:days(280),supplier:'CureWell Labs'}),P('Insulin Glargine',{batch:'INS-1145',stock:84,price:740,expiry:days(35),supplier:'HealthCore'}),P('Azithromycin 500mg',{batch:'AZI-0964',stock:1120,price:125,expiry:days(420),supplier:'CureWell Labs'})],
+laboratory:[['Ananya Mehta','Complete Blood Count','Processing','Awaiting report'],['Rohan Verma','MRI Brain','Scheduled',''],['Kavya Sharma','ECG','Report Ready','Normal sinus rhythm'],['Ishaan Gupta','Urine Routine','Sample Due','']].map(a=>({patient:a[0],test:a[1],date:T,status:a[2],result:a[3]})),
+beds:[],
+billing:[{patient:'Ananya Mehta',consultation:1200,medicine:1460,lab:2850,room:4000,surgery:0,discount:0,insurance:3000,method:'UPI',status:'Pending'},{patient:'Rohan Verma',consultation:1400,medicine:850,lab:4500,room:0,surgery:0,discount:250,insurance:1000,method:'Card',status:'Paid'}],
+ambulances:[P('PB 65 AM 1042',{driver:'Raj Kumar',phone:'9876201001',type:'Advanced Life Support',status:'Available'}),P('PB 65 BX 7721',{driver:'Amit Singh',phone:'9876201002',type:'Basic Life Support',status:'On Duty'}),P('PB 65 CR 2088',{driver:'Deepak Verma',phone:'9876201003',type:'Patient Transport',status:'Available'})]};
+S.ambulances.forEach(a=>{a.vehicle=a.name});
+[['ICU','ICU',12,7],['General Ward','GW',20,11],['Private Room','PR',8,3],['Deluxe Room','DX',4,1]].forEach(([w,p,c,o])=>{for(let i=1;i<=c;i++)S.beds.push({bed:p+'-'+String(i).padStart(2,'0'),ward:w,status:i<=o?'Occupied':'Available',patient:''})});
+const st=['Scheduled','Confirmed','Waiting','In Progress','Completed','Cancelled'];
+const pn=()=>S.patients.map(p=>p.name),dn=()=>S.doctors.map(d=>d.name);
+const M={
+patients:{l:'Patients',i:'✚',f:[['name','Full name'],['dob','Date of birth','date'],['gender','Gender','select',['Female','Male','Other']],['blood','Blood group','select',['A+','A-','B+','B-','O+','O-','AB+','AB-']],['phone','Phone'],['insurance','Insurance'],['allergies','Allergies','text','w']],c:['code','name','dob','gender','blood','phone','allergies']},
+doctors:{l:'Doctors',i:'♙',f:[['name','Name'],['dept','Department'],['qual','Qualification'],['exp','Experience (yrs)','number'],['fee','Fee (₹)','number'],['phone','Phone'],['avail','Available','select',['Yes','No']]],c:['code','name','dept','qual','exp','fee','avail']},
+appointments:{l:'Appointments',i:'▣',f:[['patient','Patient','select',pn],['doctor','Doctor','select',dn],['date','Date','date'],['time','Time','time'],['type','Type','select',['Walk-in','Online']],['status','Status','select',st],['reason','Reason','text','w']],c:['queue','patient','doctor','date','time','type','status']},
+pharmacy:{l:'Pharmacy',i:'💊',f:[['name','Medicine'],['batch','Batch no'],['stock','Stock','number'],['price','Price (₹)','number'],['expiry','Expiry','date'],['supplier','Supplier']],c:['name','batch','stock','price','expiry','supplier']},
+laboratory:{l:'Laboratory',i:'⚗',f:[['patient','Patient','select',pn],['test','Test name'],['date','Date','date'],['status','Status','select',['Scheduled','Sample Due','Processing','Report Ready']],['result','Result','text','w']],c:['patient','test','date','status','result']},
+beds:{l:'Beds & Wards',i:'▤',f:[['bed','Bed number'],['ward','Ward','select',['ICU','General Ward','Private Room','Deluxe Room']],['status','Status','select',['Available','Occupied']],['patient','Patient','select',()=>['',...pn()]]],c:['bed','ward','status','patient']},
+billing:{l:'Billing',i:'₹',f:[['patient','Patient','select',pn],...['consultation','medicine','lab','room','surgery','discount','insurance'].map(k=>[k,k[0].toUpperCase()+k.slice(1)+' (₹)','number']),['method','Payment','select',['UPI','Card','Cash']],['status','Status','select',['Pending','Paid']]],c:['patient','consultation','medicine','lab','room','total','method','status']},
+ambulances:{l:'Ambulances',i:'🚑',f:[['vehicle','Vehicle number'],['driver','Driver'],['phone','Driver phone'],['type','Type','select',['Basic Life Support','Advanced Life Support','Patient Transport']],['status','Status','select',['Available','On Duty']]],c:['vehicle','driver','phone','type','status']}};
+let cur='dashboard',ed=null;
+const $=id=>document.getElementById(id),cap=s=>s[0].toUpperCase()+s.slice(1);
+const tot=b=>(+b.consultation||0)+(+b.medicine||0)+(+b.lab||0)+(+b.room||0)+(+b.surgery||0)-(+b.discount||0)-(+b.insurance||0);
+function pill(v){const g=['Confirmed','Paid','Available','Report Ready','Completed','Yes'],b=['Cancelled','Occupied','No','On Duty'],i=['In Progress','Processing'];return`<span class="p ${g.includes(v)?'ok':b.includes(v)?'bad':i.includes(v)?'in':''}">${v}</span>`}
+function cell(k,r){if(k==='total')return'₹'+tot(r).toLocaleString('en-IN');if(['status','avail'].includes(k))return pill(r[k]);if(['fee','price','consultation','medicine','lab','room'].includes(k))return'₹'+(+r[k]||0).toLocaleString('en-IN');if(k==='queue')return'#'+r[k];return r[k]||'—'}
+function signin(e){e.preventDefault();$('login').style.display='none';$('app').style.display='block';go('dashboard');return false}
+function go(p){cur=p;$('q').value='';$('nav').innerHTML=[['dashboard','⌂','Dashboard'],...Object.entries(M).map(([k,v])=>[k,v.i,v.l])].map(([k,i,l])=>`<a class="${k===p?'on':''}" onclick="go('${k}')">${i} ${l}</a>`).join('');draw()}
+function draw(){const pg=$('pg');if(cur==='dashboard'){const av=S.beds.filter(b=>b.status==='Available').length,ta=S.appointments.filter(a=>a.date===T).length;
+pg.innerHTML=`<div class="title"><div><h1>Hospital Dashboard</h1><p>Welcome back, Rajneesh Sharma. Here is today’s overview.</p></div><button onclick="go('patients');openF()">＋ Add patient</button></div><div class="cards">${[['👥','Total Patients',S.patients.length],['👨‍⚕️','Total Doctors',S.doctors.length],['📅','Today’s Appointments',ta],['🛏️','Available Beds',av]].map(c=>`<div class="card"><span style="font-size:24px">${c[0]}</span><small>${c[1]}</small><b>${c[2]}</b></div>`).join('')}</div><div class="panel"><h3>Recent Appointments</h3><table><tr><th>Patient</th><th>Doctor</th><th>Date</th><th>Queue</th><th>Status</th></tr>${S.appointments.slice(-6).reverse().map(a=>`<tr><td>${a.patient}</td><td>${a.doctor}</td><td>${a.date}</td><td>#${a.queue}</td><td>${pill(a.status)}</td></tr>`).join('')}</table></div>`;return}
+const m=M[cur],q=$('q').value.toLowerCase(),rows=S[cur].map((r,i)=>[r,i]).filter(([r])=>!q||JSON.stringify(r).toLowerCase().includes(q));
+const lab={name:cur==='pharmacy'?'Medicine':'Name',code:'ID',dob:'DOB',blood:'Blood',dept:'Department',qual:'Qualification',exp:'Exp',avail:'Available',total:'Net total',bed:'Bed',ward:'Ward',vehicle:'Vehicle',type:'Type',queue:'Queue'};
+let w='';if(cur==='beds'){w='<div class="wards">'+['ICU','General Ward','Private Room','Deluxe Room'].map(x=>{const a=S.beds.filter(b=>b.ward===x),o=a.filter(b=>b.status==='Occupied').length;return`<div class="card"><b style="font-size:18px">${x}</b><small>${o} / ${a.length} occupied</small><div class="bar"><i style="width:${a.length?o/a.length*100:0}%"></i></div></div>`}).join('')+'</div>'}
+pg.innerHTML=`<div class="title"><div><h1>${m.l}</h1><p>${rows.length} record${rows.length==1?'':'s'}</p></div><button onclick="openF()">＋ Add ${m.l.replace(/s$/,'')}</button></div>${w}<div class="panel"><table><tr>${m.c.map(k=>`<th>${lab[k]||cap(k)}</th>`).join('')}<th></th></tr>${rows.map(([r,i])=>`<tr>${m.c.map(k=>`<td>${cell(k,r)}</td>`).join('')}<td><button class="g" onclick="openF(${i})">Edit</button> <button class="d" onclick="del(${i})">Delete</button></td></tr>`).join('')||`<tr><td colspan="${m.c.length+1}">No records found.</td></tr>`}</table></div>`}
+function openF(i){const m=M[cur];ed=i;const r=i==null?{}:S[cur][i];$('mt').textContent=(i==null?'Add ':'Edit ')+m.l.replace(/s$/,'');
+$('mf').innerHTML=m.f.map(([k,l,t,o],n)=>{t=t||'text';const w=(o==='w'||t==='text'&&n===m.f.length-1&&m.f.length%2)?'w':'';let inp;if(t==='select'){const L=typeof o==='function'?o():o;inp=`<select data-k="${k}">${L.map(x=>`<option ${x===r[k]?'selected':''}>${x}</option>`).join('')}</select>`}else inp=`<input data-k="${k}" type="${t}" value="${r[k]??''}">`;return`<label class="${w}">${l}${inp}</label>`}).join('');$('m').classList.add('on')}
+function save(){const r=ed==null?{}:S[cur][ed];$('mf').querySelectorAll('[data-k]').forEach(e=>r[e.dataset.k]=e.type==='number'?+e.value:e.value);
+if(ed==null){const n=S[cur].length+1;if(cur==='patients')r.code='PT-'+String(n+3000).padStart(4,'0');if(cur==='doctors')r.code='DR-'+String(n).padStart(3,'0');if(cur==='appointments')r.queue=S.appointments.filter(a=>a.date===r.date).length+1;S[cur].push(r)}
+$('m').classList.remove('on');toast(ed==null?'Record added successfully':'Record updated successfully');draw()}
+function del(i){if(confirm('Delete this record?')){S[cur].splice(i,1);toast('Record deleted successfully');draw()}}
+function toast(s){const t=$('t');t.textContent=s;t.style.display='block';setTimeout(()=>t.style.display='none',2200)}
+</script></body></html>
